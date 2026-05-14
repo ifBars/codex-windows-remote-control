@@ -10,6 +10,8 @@ Known limits:
 - OpenAI can change server-side gating, enrollment behavior, command names, or protocol expectations.
 - Mobile visibility is the only real end-to-end success check.
 - A running process and port 443 connection are strong signals, but they do not prove the phone can see the environment.
+- Existing Codex threads worked best in testing. Creating a new thread from mobile was unreliable: sending the first message could clear/delete the draft without creating the thread.
+- Desktop and phone did not always sync cleanly when driving the same thread from both clients at once. Avoid simultaneous desktop+phone use in the same thread when possible.
 - WSL has separate Codex auth state and may fail with stale refresh tokens until `codex login` is redone inside WSL.
 - Plugin sync warnings in logs may be unrelated to remote-control success.
 

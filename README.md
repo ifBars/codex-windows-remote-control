@@ -57,6 +57,8 @@ Validated on Windows with `codex-cli 0.130.0`.
 
 Known caveat: this is not official Windows app support. It uses the CLI's experimental remote-control path while OpenAI's desktop app rollout catches up.
 
+In testing, existing Codex threads worked best. Starting a brand-new thread from mobile was unreliable: sending the first message could clear/delete the draft without creating the thread. Sync also appeared inconsistent when using desktop and phone in the same thread at the same time. For now, use the mobile connection mainly to continue an existing thread, and avoid driving the same thread from desktop and phone concurrently.
+
 ## Docs
 
 - [Windows Quickstart](docs/windows-quickstart.md)
