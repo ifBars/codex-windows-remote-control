@@ -1,0 +1,5 @@
+.internal/
+*.log
+*.tmp
+.codex-remote-control/
+node_modules/

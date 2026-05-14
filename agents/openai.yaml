@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Windows Remote Control"
+  short_description: "Connect ChatGPT mobile to Codex on Windows"
+  default_prompt: "$codex-windows-remote-control Help me connect ChatGPT mobile to Codex on this Windows machine using the experimental remote-control CLI path."
