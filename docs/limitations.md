@@ -1,8 +1,6 @@
 # Limitations
 
-This is an unsupported workaround.
-
-OpenAI's public rollout says to use the macOS Codex app for mobile setup and says Windows app support is coming soon. That means this repo should not claim official Windows support.
+This is an unsupported workaround. OpenAI's public rollout says to use the macOS Codex app for mobile setup and says Windows app support is coming soon.
 
 Known limits:
 
@@ -17,6 +15,7 @@ Known limits:
 
 Security boundary:
 
+- You do not need to run this repo's helper scripts to try the workaround.
 - Do not expose local ports to the public internet.
 - Do not proxy the relay through third-party services.
 - Do not copy auth tokens between Windows and WSL.

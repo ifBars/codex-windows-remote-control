@@ -29,6 +29,8 @@ Keep `codex remote-control` running, then:
 3. Restart the Windows Codex desktop app once.
 4. Re-check the remote-control process status.
 
+If you want a local status check without reading logs manually, the optional `scripts/status-codex-remote-control.ps1` helper prints matching processes and port 443 connections. It is not required.
+
 ## WSL Auth Fails
 
 If WSL reports `refresh_token_reused`, run login inside WSL:

@@ -31,7 +31,7 @@ codex login status
 codex remote-control
 ```
 
-If the user wants a background process, use the bundled helper:
+Prefer the manual command first. If the user explicitly wants a background process and accepts running repo-local PowerShell, use the bundled helper:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\start-codex-remote-control.ps1

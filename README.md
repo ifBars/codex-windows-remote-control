@@ -1,14 +1,18 @@
 # Codex Windows Remote Control
 
-An installable Codex skill for helping Windows users connect ChatGPT mobile to a Codex environment using the experimental `codex remote-control` CLI path.
+Use ChatGPT mobile with Codex running on Windows through the current Codex CLI.
 
-OpenAI's May 14, 2026 launch post says Codex mobile support is in preview and that phone-to-Codex setup currently points users to the macOS Codex app, with Windows app support coming soon. In practice, the current Windows Codex CLI can run the remote-control transport directly.
+OpenAI's mobile Codex rollout currently points Windows users at "coming soon" desktop-app support. The CLI path can already work:
 
-This repo packages that workflow so a Codex agent can try it repeatably, verify what happened, and explain the limits clearly.
+```powershell
+codex remote-control
+```
 
-## Quick Start
+This repo packages the short manual setup, an installable Codex skill, and a few notes from real testing.
 
-From PowerShell:
+## Human Jump Start
+
+In PowerShell:
 
 ```powershell
 bun install -g @openai/codex@latest
@@ -16,52 +20,62 @@ codex login status
 codex remote-control
 ```
 
-Then refresh the ChatGPT mobile Codex connection flow.
+If `codex login status` says you are not logged in, run `codex login` first.
 
-For a background process:
+Leave that command running.
+
+On your phone:
+
+1. Update ChatGPT mobile.
+2. Open the Codex mobile connection flow.
+3. If it says "Waiting for desktop", back out and re-enter the flow once.
+4. Pick the Windows machine when it appears.
+
+That is the main path. You do not need to download or run any script from this repo to try it.
+
+## Agent Jump Start
+
+Install this repo as a Codex skill:
+
+```powershell
+git clone https://github.com/ifBars/codex-windows-remote-control.git "$env:USERPROFILE\.codex\skills\codex-windows-remote-control"
+```
+
+Restart Codex, then ask:
+
+```text
+$codex-windows-remote-control Help me connect ChatGPT mobile to Codex on this Windows machine.
+```
+
+The skill tells the agent to update Codex with Bun, check ChatGPT login, start `codex remote-control`, verify local process/network signals, and ask you to confirm that mobile sees the environment.
+
+## Optional Helpers
+
+The PowerShell scripts in `scripts/` are optional convenience wrappers for people who want a background process and a status check:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\start-codex-remote-control.ps1
 powershell -ExecutionPolicy Bypass -File .\scripts\status-codex-remote-control.ps1
 ```
 
-## Install The Skill
+If you do not want to run repo-provided PowerShell scripts, skip them. The manual three-command path above is the preferred quick start.
 
-Manual install:
+## What Worked In Testing
 
-```powershell
-git clone https://github.com/ifBars/codex-windows-remote-control.git "$env:USERPROFILE\.codex\skills\codex-windows-remote-control"
-```
+- Windows with `codex-cli 0.130.0`.
+- Native Windows CLI, not WSL.
+- Existing Codex threads worked best.
 
-Then restart Codex so the skill list refreshes.
+Known rough edges:
 
-If you use a skill installer that supports GitHub root-level skills, install the repo root as:
+- This is not official Windows app support.
+- Creating a brand-new thread from mobile was unreliable in testing; sending the first message could clear the draft without creating a thread.
+- Desktop and phone did not always sync cleanly when driving the same thread from both clients at once.
 
-```powershell
-python install-skill-from-github.py --repo ifBars/codex-windows-remote-control --path . --name codex-windows-remote-control
-```
-
-## Use The Skill
-
-Ask Codex:
-
-```text
-$codex-windows-remote-control Help me connect ChatGPT mobile to Codex on this Windows machine.
-```
-
-The skill will guide the agent through updating the CLI, checking ChatGPT login, starting `codex remote-control`, verifying process/network signals, and asking you to confirm the mobile UI sees the desktop.
-
-## Status
-
-Validated on Windows with `codex-cli 0.130.0`.
-
-Known caveat: this is not official Windows app support. It uses the CLI's experimental remote-control path while OpenAI's desktop app rollout catches up.
-
-In testing, existing Codex threads worked best. Starting a brand-new thread from mobile was unreliable: sending the first message could clear/delete the draft without creating the thread. Sync also appeared inconsistent when using desktop and phone in the same thread at the same time. For now, use the mobile connection mainly to continue an existing thread, and avoid driving the same thread from desktop and phone concurrently.
+For now, use the mobile connection mainly to continue an existing thread, and avoid using desktop and phone in the same thread at the same time.
 
 ## Docs
 
-- [Windows Quickstart](docs/windows-quickstart.md)
 - [How It Works](docs/how-it-works.md)
 - [Limitations](docs/limitations.md)
 - [Troubleshooting](docs/troubleshooting.md)
