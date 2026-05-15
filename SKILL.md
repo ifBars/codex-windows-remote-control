@@ -80,7 +80,15 @@ If WSL reports `refresh_token_reused`, redo `codex login` inside WSL. Do not ass
 
 - If `codex remote-control` is missing, update the CLI with `bun install -g @openai/codex@latest`.
 - If `codex app-server daemon` is missing on Windows, that is expected for many builds. Use top-level `codex remote-control`.
+- If `codex remote-control` fails, try the lower-level app-server fallback only after explaining that it opens a local websocket listener:
+
+```powershell
+& "$env:LOCALAPPDATA\OpenAI\Codex\bin\codex.exe" app-server --enable remote_control --listen ws://127.0.0.1:4503
+```
+
+- If a user asks about adding feature flags to `config.toml`, verify with `codex features list` first. In `codex-cli 0.130.0`, `remote_control` is recognized but `remote_connections` is not. Do not recommend persistent config edits as the default path.
 - If the desktop app has no visible mobile onboarding UI, keep testing the CLI path. The Windows app may have bundled remote UI chunks without the product rollout enabled.
+- If mobile or desktop appears to assume macOS-style paths, steer with the exact Windows path and prefer continuing an existing Codex thread.
 - If logs show plugin sync 403s but the remote-control process is connected, do not treat plugin warnings as remote-control failure by themselves.
 - If the phone still waits after a confirmed CLI connection, document that as a product-gating or discovery issue and try WSL only if useful.
 

@@ -12,6 +12,16 @@ codex remote-control
 
 On Windows, this can start a headless app-server with remote control enabled even when the Windows desktop app does not expose the polished onboarding UI yet.
 
+There is also a lower-level app-server form:
+
+```powershell
+codex app-server --enable remote_control --listen ws://127.0.0.1:4503
+```
+
+That command exposes a local websocket app-server and enables the experimental `remote_control` feature surface for clients. It is useful as a fallback, but it is more implementation-shaped than the top-level `codex remote-control` command.
+
+The config-file version of this idea is less reliable across builds. `remote_control` is a real feature flag in `codex-cli 0.130.0`, but `remote_connections` is not recognized by that CLI. The validated path in this repo did not require a persistent config edit.
+
 In a validated run, the Windows CLI:
 
 1. Used the existing ChatGPT Codex login.
