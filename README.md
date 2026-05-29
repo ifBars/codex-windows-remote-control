@@ -72,6 +72,15 @@ That starts an app-server websocket listener and enables the experimental remote
 
 Use the app-server form as a fallback if `codex remote-control` is unavailable or does not work with your install. Leave whichever command you use running while refreshing the mobile flow.
 
+## Latest CLI Fork
+
+`codex-cli 0.135.0` changed `codex remote-control start` to use the app-server daemon lifecycle. Upstream currently rejects that daemon lifecycle on Windows, so this project tracks a focused fork for Windows remote-control daemon support:
+
+- Fork: https://github.com/ifBars/codex
+- Branch: `windows-remote-control-daemon`
+
+The fork keeps the upstream Unix daemon behavior intact and adds a Windows PID backend so the latest CLI line can start and stop a remote-control app-server on Windows until official support lands.
+
 ## About Config Snippets
 
 You may see posts suggesting this in `$HOME\.codex\config.toml`:
